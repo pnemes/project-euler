@@ -264,23 +264,6 @@ public final class Arithmetic {
 	}
 
 	// number of divisors
-	/*
-	public static long numberOfDivisors(long n) {
-		long divnum = 0;
-		final double sqrt = Math.sqrt(n);
-		for (long i = 1; i <= sqrt; i++) {
-			if (n % i == 0) {
-				divnum += 2;
-			}
-		}
-		if (sqrt % 1 == 0) {
-			divnum--;
-		}
-		return divnum;
-	}
-	*/
-
-	// number of divisors
 	public static long numberOfDivisors(long n) {
 		if (n == 1) {
 			return 1;
@@ -298,6 +281,32 @@ public final class Arithmetic {
 	            remain = remain / prime;
 	        }
 	        divnum *= exponent;
+
+	        if (remain == 1) {
+	            return divnum;
+	        }
+	    }
+	    return 2 * divnum;
+	}
+
+	// number of divisors of n^k
+	public static long numberOfDivisorsPow(long n, int k) {
+		if (n == 1) {
+			return 1;
+		}
+		long divnum = 1;
+		final long[] primes = Primes.getPrimesUntil((long) Math.sqrt(n));
+
+	    int exponent;
+	    long remain = n;
+	    for (final long prime : primes) {
+
+	        exponent = 0;
+	        while ((remain % prime) == 0) {
+	            exponent++;
+	            remain /= prime;
+	        }
+	        divnum *= (k * exponent) + 1;
 
 	        if (remain == 1) {
 	            return divnum;

@@ -47,10 +47,9 @@ public final class Problem108 implements Callable<Long> {
 		// ...
 		// n2 = sr
 
-		//TODO: optimize, and base problem 110 and 111 of the solution
 		long n = 1;
 		for (long s = 0; s < 2000; n++) {
-			s = Arithmetic.numberOfDivisors(n*n);
+			s = Arithmetic.numberOfDivisorsPow(n, 2);
 		}
 		return --n;
     }
