@@ -73,7 +73,6 @@ public final class Page03Test extends AbstractPageTest {
 	}
 
 	@Test
-	@Ignore( "Not yet implemented." )
 	public void testProblem109() throws Exception {
 		testProblem(109);
 	}
