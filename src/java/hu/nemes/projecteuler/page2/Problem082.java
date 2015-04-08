@@ -29,6 +29,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.concurrent.Callable;
+import java.util.stream.LongStream;
 
 public final class Problem082 implements Callable<Long> {
 
@@ -54,32 +55,35 @@ public final class Problem082 implements Callable<Long> {
 				.map(s -> s.split(","))
 				.map(Arrays::stream)
 				.map(s -> s.mapToLong(Long::parseLong))
-				.map(s -> s.toArray())
+				.map(LongStream::toArray)
 				.toArray(x -> new long[x][]);
 
-		final int l = data.length;
+		final int length = data.length;
 		final long[] solution = Arrays
 				.stream(data)
-				.mapToLong(a -> a[l-1])
+				.mapToLong(a -> a[length-1])
 				.toArray();
 
-		for (int i = l - 2; i >= 0; i--) {
+		for (int i = length - 2; i >= 0; i--) {
 
 			solution[0] += data[0][i];
-		    for (int j = 1; j < l; j++) {
+		    for (int j = 1; j < length; j++) {
 		    	solution[j] = Math.min(
 		    			solution[j - 1],
 		    			solution[j]);
 		    	solution[j] += data[j][i];
 		    }
 
-		    for (int j = l - 2; j >= 0; j--) {
+		    for (int j = length - 2; j >= 0; j--) {
 		    	solution[j] = Math.min(
 		    			solution[j],
 		    			solution[j+1] + data[j][i]);
 		    }
 		}
 
-		return Arrays.stream(solution).min().getAsLong();
+		return Arrays
+				.stream(solution)
+				.min()
+				.getAsLong();
 	}
 }

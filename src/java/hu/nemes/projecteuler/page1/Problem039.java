@@ -25,8 +25,8 @@ package hu.nemes.projecteuler.page1;
 
 import java.util.AbstractMap;
 import java.util.Comparator;
+import java.util.Map;
 import java.util.concurrent.Callable;
-import java.util.function.LongFunction;
 import java.util.stream.LongStream;
 
 public final class Problem039 implements Callable<Long> {
@@ -49,15 +49,14 @@ public final class Problem039 implements Callable<Long> {
 				.rangeClosed(1, maxP / 2)
 				.parallel()
 				.map(p -> 2 * p)
-				.mapToObj(
-						(LongFunction<AbstractMap.SimpleImmutableEntry<Long, Long>>) p ->
+				.<Map.Entry<Long, Long>>mapToObj(p ->
 						new AbstractMap.SimpleImmutableEntry<>(p ,
 						LongStream
 							.rangeClosed(2, (int) (p / (2 + Math.sqrt(2))))
 							.parallel()
 							.filter(a -> ((p*(p - (2*a))) % (2*(p-a))) == 0)
 							.count()))
-				.max(Comparator.comparingLong(AbstractMap.SimpleImmutableEntry::getValue))
+				.max(Comparator.comparingLong(Map.Entry::getValue))
 				.get()
 				.getKey();
 	}

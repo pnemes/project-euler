@@ -30,8 +30,8 @@ import hu.nemes.projecteuler.common.StreamUtils;
 import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Map;
 import java.util.concurrent.Callable;
-import java.util.function.Function;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
@@ -54,7 +54,7 @@ public final class Problem051 implements Callable<Long> {
 				.of(
 					new int[] {0, 0, 0, 1, 1},
 					new int[] {0, 0, 0, 1, 1, 1})
-				.map((Function<int[], int[][]>) t -> StreamUtils
+				.<int[][]>map(t -> StreamUtils
 						.generate(StreamUtils.makePermutationIterator(t))
 						.filter(a -> a[a.length - 1] == 1)
 						.map(a -> Arrays.copyOf(a, a.length))
@@ -67,7 +67,7 @@ public final class Problem051 implements Callable<Long> {
 				.map(i -> (2 * i) + 11)
 				.filter(i -> (i % 5) != 0)
 				.mapToObj(i -> new AbstractMap.SimpleImmutableEntry<>(i, permutations[(i < 100) ? 0 : 1]))
-				.<AbstractMap.SimpleImmutableEntry<Long, long[]>>flatMap(e ->
+				.<Map.Entry<Long, long[]>>flatMap(e ->
 						Arrays.stream(e.getValue())
 							.map(p -> IntStream
 									.rangeClosed(p[0] == 0 ? 1 : 0, 9)
@@ -101,7 +101,7 @@ public final class Problem051 implements Callable<Long> {
 					}
 					return false;
 				})
-				.min(Comparator.comparingLong(AbstractMap.SimpleImmutableEntry::getKey))
+				.min(Comparator.comparingLong(Map.Entry::getKey))
 				.get()
 				.getValue()[0];
 	}

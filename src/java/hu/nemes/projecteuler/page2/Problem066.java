@@ -26,6 +26,7 @@ package hu.nemes.projecteuler.page2;
 import java.math.BigInteger;
 import java.util.AbstractMap;
 import java.util.Comparator;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.stream.IntStream;
 
@@ -87,7 +88,7 @@ public final class Problem066 implements Callable<Integer> {
 
 					return new AbstractMap.SimpleImmutableEntry<Integer, BigInteger>(n, num);
 				})
-				.max(Comparator.comparing(AbstractMap.SimpleImmutableEntry::getValue))
+				.max(Comparator.comparing(Map.Entry::getValue))
 				.get()
 				.getKey();
 	}

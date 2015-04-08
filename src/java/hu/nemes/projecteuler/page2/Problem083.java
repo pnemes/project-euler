@@ -29,6 +29,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.concurrent.Callable;
+import java.util.stream.LongStream;
 
 public final class Problem083 implements Callable<Long> {
 
@@ -84,25 +85,25 @@ public final class Problem083 implements Callable<Long> {
 				.map(s -> s.split(","))
 				.map(Arrays::stream)
 				.map(s -> s.mapToLong(Long::parseLong))
-				.map(s -> s.toArray())
+				.map(LongStream::toArray)
 				.toArray(x -> new long[x][]);
 
-		final int l = data.length - 1;
+		final int length = data.length - 1;
 		final long minH = Arrays
 				.stream(data)
 				.flatMapToLong(Arrays::stream)
 				.min()
 				.getAsLong();
 
-		final long[][] hCost = new long[l+1][l+1];
-		final Node[][] closed = new Node[l+1][l+1];
+		final long[][] hCost = new long[length+1][length+1];
+		final Node[][] closed = new Node[length+1][length+1];
 		int sortedOpenSize = 0;
 		Node[] sortedOpen = new Node[64];
 
-		for (int x=0; x<=l; x++) {
+		for (int x=0; x<=length; x++) {
 			final int len = hCost[x].length;
 			for (int y=0; y<len; y++) {
-				hCost[x][y] = ((((2 * l) + 1) - x - y) * minH);
+				hCost[x][y] = ((((2 * length) + 1) - x - y) * minH);
 			}
 		}
 
@@ -127,19 +128,19 @@ public final class Problem083 implements Callable<Long> {
 			if ((n.x > 0) && (closed[n.x-1][n.y] == null)) {
 				sortedOpen[sortedOpenSize++] = new Node(data, hCost, n.x-1, n.y, n);
 			}
-			if ((n.x < l) && (closed[n.x+1][n.y] == null)) {
+			if ((n.x < length) && (closed[n.x+1][n.y] == null)) {
 				sortedOpen[sortedOpenSize++] = new Node(data, hCost, n.x+1, n.y, n);
 			}
 			if ((n.y > 0) && (closed[n.x][n.y-1] == null)) {
 				sortedOpen[sortedOpenSize++] = new Node(data, hCost, n.x, n.y-1, n);
 			}
-			if ((n.y < l) && (closed[n.x][n.y+1] == null)) {
+			if ((n.y < length) && (closed[n.x][n.y+1] == null)) {
 				sortedOpen[sortedOpenSize++] = new Node(data, hCost, n.x, n.y+1, n);
 			}
 
-		} while ((closed[l][l] == null) && (sortedOpenSize > 0));
+		} while ((closed[length][length] == null) && (sortedOpenSize > 0));
 
-		return closed[l][l].cost;
+		return closed[length][length].cost;
 	}
 
 	private int compact(Node[][] closed, Node[] sortedOpen, int sortedOpenSize) {

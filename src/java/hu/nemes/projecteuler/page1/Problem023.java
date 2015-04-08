@@ -44,7 +44,7 @@ public final class Problem023 implements Callable<Long> {
 	private final static int max = 28_123;
 
 	@Override
-	public Long call() throws Exception {
+	public Long call() {
 
 		final long[] sumOfProperDivisors = new long[max];
 		IntStream

@@ -31,7 +31,7 @@ import java.io.LineNumberReader;
 import java.net.URISyntaxException;
 import java.util.concurrent.Callable;
 
-public final class Problem099 implements Callable<Long> {
+public final class Problem099 implements Callable<Integer> {
 
 	/**
 	 * Largest exponential
@@ -46,10 +46,10 @@ public final class Problem099 implements Callable<Long> {
 	 * NOTE: The first two lines in the file represent the numbers in the example given above.
 	 */
 	@Override
-	public Long call() throws IOException, URISyntaxException {
+	public Integer call() throws IOException, URISyntaxException {
 		final LineNumberReader reader = new LineNumberReader(new InputStreamReader(Problem099.class.getResourceAsStream("base_exp.txt")));
 
-		return (long) StreamUtils
+		return StreamUtils
 			.<int[]>generate(
 				f -> {
 					try {

@@ -28,7 +28,6 @@ import hu.nemes.projecteuler.common.StreamUtils;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
-import java.net.URISyntaxException;
 import java.util.concurrent.Callable;
 
 public final class Problem102 implements Callable<Long> {
@@ -52,7 +51,7 @@ public final class Problem102 implements Callable<Long> {
 	 * NOTE: The first two examples in the file represent the triangles in the example given above.
 	 */
 	@Override
-	public Long call() throws IOException, URISyntaxException {
+	public Long call() throws IOException {
 		final LineNumberReader reader = new LineNumberReader(new InputStreamReader(Problem102.class.getResourceAsStream("triangles.txt")));
 
 		return (long) StreamUtils

@@ -51,7 +51,7 @@ public final class Problem026 implements Callable<Long> {
 	 * Find the value of d < 1000 for which 1/d contains the longest recurring cycle in its decimal fraction part.
 	 */
 	@Override
-	public Long call() throws Exception {
+	public Long call() {
 		return IntStream
 			.range(2, 1000)
 			.parallel()

@@ -25,8 +25,6 @@ package hu.nemes.projecteuler.page3;
 
 import hu.nemes.projecteuler.common.Arithmetic;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.concurrent.Callable;
 
 public final class Problem108 implements Callable<Long> {
@@ -40,8 +38,7 @@ public final class Problem108 implements Callable<Long> {
 	 * NOTE: This problem is an easier version of Problem 110; it is strongly advised that you solve this one first.
 	 */
 	@Override
-	public Long call() throws IOException, URISyntaxException {
-
+	public Long call() {
 		// 1/x + 1/y = 1/n
 		// yn + xn = xy
 		// ...

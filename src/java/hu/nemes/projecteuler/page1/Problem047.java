@@ -52,7 +52,10 @@ public final class Problem047 implements Callable<Long> {
 	@Override
 	public Long call() {
 
-		final long min = Primes.makePrimeStream().limit(n).reduce(1, (a, b) -> a * b);
+		final long min = Primes
+				.makePrimeStream()
+				.limit(n)
+				.reduce(1, (a, b) -> a * b);
 
 		long i = min;
 		long d;

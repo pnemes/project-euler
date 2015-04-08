@@ -26,7 +26,6 @@ package hu.nemes.projecteuler.page3;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Collection;
@@ -60,7 +59,7 @@ public final class Problem107 implements Callable<Long> {
 	 * Using network.txt (right click and 'Save Link/Target As...'), a 6K text file containing a network with forty vertices, and given in matrix form, find the maximum saving which can be achieved by removing redundant edges whilst ensuring that the network remains connected.
 	 */
 	@Override
-	public Long call() throws IOException, URISyntaxException {
+	public Long call() throws NumberFormatException, IOException {
 
 		final NavigableSet<int[]> edges = new TreeSet<>(Comparator
 				.<int[]>comparingInt(e -> e[2])	// weight

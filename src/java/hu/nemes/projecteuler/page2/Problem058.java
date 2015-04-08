@@ -48,7 +48,7 @@ public final class Problem058 implements Callable<Long> {
 	 * If one complete new layer is wrapped around the spiral above, a square spiral with side length 9 will be formed. If this process is continued, what is the side length of the square spiral for which the ratio of primes along both diagonals first falls below 10%?
 	 */
 	@Override
-	public Long call() throws Exception {
+	public Long call() {
 
 		long i = 1;
 		long r = 1;

@@ -27,8 +27,8 @@ import hu.nemes.projecteuler.common.Primes;
 
 import java.util.AbstractMap;
 import java.util.Comparator;
+import java.util.Map;
 import java.util.concurrent.Callable;
-import java.util.function.LongFunction;
 import java.util.function.LongSupplier;
 
 public final class Problem050 implements Callable<Long> {
@@ -52,7 +52,7 @@ public final class Problem050 implements Callable<Long> {
 		return Primes
 				.makePrimeStreamUntil(1_000_000)
 				.filter(p -> p > 1000)
-				.mapToObj((LongFunction<AbstractMap.SimpleImmutableEntry<Long, Long>>) p -> {
+				.<Map.Entry<Long, Long>>mapToObj(p -> {
 					final LongSupplier primes1 = Primes.makePrimeSupplier();
 					final LongSupplier primes2 = Primes.makePrimeSupplier();
 
@@ -76,7 +76,7 @@ public final class Problem050 implements Callable<Long> {
 					return new AbstractMap.SimpleImmutableEntry<Long, Long>(p, (sum == p) ? i : 0);
 				})
 				.filter(e -> e.getValue() > 0)
-				.max(Comparator.comparingLong(AbstractMap.SimpleImmutableEntry::getValue))
+				.max(Comparator.comparingLong(Map.Entry::getValue))
 				.get()
 				.getKey();
 	}

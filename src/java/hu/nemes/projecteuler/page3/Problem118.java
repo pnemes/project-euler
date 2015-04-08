@@ -26,8 +26,6 @@ package hu.nemes.projecteuler.page3;
 import hu.nemes.projecteuler.common.Primes;
 import hu.nemes.projecteuler.common.StreamUtils;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.concurrent.Callable;
 import java.util.stream.IntStream;
 
@@ -50,7 +48,7 @@ public final class Problem118 implements Callable<Long> {
 	 * Find the least number for which the proportion of bouncy numbers is exactly 99%.
 	 */
 	@Override
-	public Long call() throws IOException, URISyntaxException {
+	public Long call() {
 		return (long)
 				StreamUtils
 					.generate(

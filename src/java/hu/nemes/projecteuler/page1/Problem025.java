@@ -55,7 +55,7 @@ public final class Problem025 implements Callable<Long> {
 	 * What is the first term in the Fibonacci sequence to contain 1000 digits?
 	 */
 	@Override
-	public Long call() throws Exception {
+	public Long call() {
 
 		final BigInteger m = BigInteger.TEN.pow(999);
 

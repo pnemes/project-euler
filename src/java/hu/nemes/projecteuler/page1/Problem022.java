@@ -41,7 +41,7 @@ public final class Problem022 implements Callable<Long> {
 	 * What is the total of all the name scores in the file?
 	 */
 	@Override
-	public Long call() throws Exception {
+	public Long call() {
 
 		final String[] names = StreamUtils
 				.generateTokenizerStream(Problem022.class.getResourceAsStream("names.txt"))

@@ -73,11 +73,11 @@ public final class Problem089 implements Callable<Long> {
 		 * I			I		0		-
 		 * II			II		0		-
 		 * III			III		0		-
-		 * IIII		IV		2		-
+		 * IIII			IV		2		-
 		 * IIIII		V		4		-
 		 * IIIIII		VI		4		-
-		 * IIIIIII	VII	4		-
-		 * IIIIIIII	VIII	4		-
+		 * IIIIIII		VII		4		-
+		 * IIIIIIII		VIII	4		-
 		 * IIIIIIIII	IX		7		-
 		 * VIIII		IX		3		+
 		 */

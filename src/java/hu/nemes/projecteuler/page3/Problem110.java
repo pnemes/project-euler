@@ -25,9 +25,7 @@ package hu.nemes.projecteuler.page3;
 
 import hu.nemes.projecteuler.common.Primes;
 
-import java.io.IOException;
 import java.math.BigInteger;
-import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.concurrent.Callable;
 import java.util.stream.IntStream;
@@ -45,7 +43,7 @@ public final class Problem110 implements Callable<BigInteger> {
 	 * NOTE: This problem is a much more difficult version of Problem 108 and as it is well beyond the limitations of a brute force approach it requires a clever implementation.
 	 */
 	@Override
-	public BigInteger call() throws IOException, URISyntaxException {
+	public BigInteger call() {
 
 		// 1/x + 1/y = 1/n
 		// yn + xn = xy

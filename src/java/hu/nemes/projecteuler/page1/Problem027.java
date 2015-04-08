@@ -28,10 +28,9 @@ import hu.nemes.projecteuler.common.Primes;
 import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Map;
 import java.util.concurrent.Callable;
-import java.util.function.Function;
 import java.util.stream.LongStream;
-import java.util.stream.Stream;
 
 public final class Problem027 implements Callable<Long> {
 
@@ -61,7 +60,7 @@ public final class Problem027 implements Callable<Long> {
 	private final static long maxP = maxN ^ (2 + (maxN * maxQ) + maxQ) ^ 2;
 
 	@Override
-	public Long call() throws Exception {
+	public Long call() {
 
 		final long[] primes = Primes
 				.makePrimeStreamUntil(maxP)
@@ -71,12 +70,11 @@ public final class Problem027 implements Callable<Long> {
 				.rangeClosed(-maxQ, maxQ)
 				.parallel()
 				.boxed()
-				.flatMap(
-					(Function<Long, Stream<AbstractMap.SimpleImmutableEntry<Long, Long>>>) a ->
+				.flatMap(a ->
 					LongStream
 						.rangeClosed(-maxQ, maxQ)
 						.parallel()
-						.mapToObj(b -> new AbstractMap.SimpleImmutableEntry<>(a, b))
+						.<Map.Entry<Long, Long>>mapToObj(b -> new AbstractMap.SimpleImmutableEntry<>(a, b))
 				)
 				.map(e -> {
 					final long a = e.getKey();
@@ -89,7 +87,7 @@ public final class Problem027 implements Callable<Long> {
 					} while (Arrays.binarySearch(primes, x) >= 0);
 					return new AbstractMap.SimpleImmutableEntry<>(a * b, --n);
 				})
-				.max(Comparator.comparingLong(AbstractMap.SimpleImmutableEntry::getValue))
+				.max(Comparator.comparingLong(Map.Entry::getValue))
 				.get()
 				.getKey();
 	}

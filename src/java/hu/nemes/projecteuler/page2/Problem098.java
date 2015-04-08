@@ -93,6 +93,7 @@ public final class Problem098 implements Callable<Long> {
                     Characteristics.IDENTITY_FINISH)));
 	}
 
+	//TODO: this needs some simplification. (maybe not force over the top generics on streams?)
 	@Override
 	public Long call() {
 		return StreamUtils

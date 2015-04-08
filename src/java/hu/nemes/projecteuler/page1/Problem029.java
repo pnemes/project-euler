@@ -52,7 +52,7 @@ public final class Problem029 implements Callable<Long> {
 		return LongStream
 					.rangeClosed(2, 100)
 					.parallel()
-					.mapToObj(a -> BigInteger.valueOf(a))
+					.mapToObj(BigInteger::valueOf)
 					.flatMap(a -> IntStream
 								.rangeClosed(2, 100)
 								.parallel()

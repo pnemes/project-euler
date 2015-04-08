@@ -47,7 +47,7 @@ public final class Problem028 implements Callable<Long> {
 	private final static int radius = (size - 1) / 2;
 
 	@Override
-	public Long call() throws Exception {
+	public Long call() {
 
 		long sum = 1;
 		long i = 1;

@@ -28,9 +28,9 @@ import hu.nemes.projecteuler.common.Primes;
 import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.function.Function;
-import java.util.function.LongFunction;
 import java.util.stream.Stream;
 
 public final class Problem070 implements Callable<Long> {
@@ -58,7 +58,7 @@ public final class Problem070 implements Callable<Long> {
 		return Arrays
 				.stream(primes)
 				.parallel()
-				.mapToObj((LongFunction<Stream<AbstractMap.SimpleImmutableEntry<Long, Double>>>)
+				.<Stream<Map.Entry<Long, Double>>>mapToObj(
 						a -> Arrays
 						.stream(primes)
 						.parallel()
@@ -77,7 +77,7 @@ public final class Problem070 implements Callable<Long> {
 						.mapToObj(b -> new AbstractMap.SimpleImmutableEntry<>(a * b, ((double) (a * b)) / ((a - 1) * (b - 1))))
 				)
 				.flatMap(Function.identity())
-				.min(Comparator.comparing(AbstractMap.SimpleImmutableEntry::getValue))
+				.min(Comparator.comparing(Map.Entry::getValue))
 				.get()
 				.getKey();
 	}
