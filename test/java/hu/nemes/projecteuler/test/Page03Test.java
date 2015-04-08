@@ -79,7 +79,6 @@ public final class Page03Test extends AbstractPageTest {
 	}
 
 	@Test
-	@Ignore( "Not yet optimized." )
 	public void testProblem110() throws Exception {
 		testProblem(110);
 	}

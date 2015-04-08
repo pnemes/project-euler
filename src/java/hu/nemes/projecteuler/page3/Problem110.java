@@ -23,13 +23,16 @@
  */
 package hu.nemes.projecteuler.page3;
 
-import hu.nemes.projecteuler.common.Arithmetic;
+import hu.nemes.projecteuler.common.Primes;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.concurrent.Callable;
+import java.util.stream.IntStream;
 
-public final class Problem110 implements Callable<Long> {
+public final class Problem110 implements Callable<BigInteger> {
 
 	/**
 	 * Diophantine reciprocals II
@@ -42,17 +45,67 @@ public final class Problem110 implements Callable<Long> {
 	 * NOTE: This problem is a much more difficult version of Problem 108 and as it is well beyond the limitations of a brute force approach it requires a clever implementation.
 	 */
 	@Override
-	public Long call() throws IOException, URISyntaxException {
+	public BigInteger call() throws IOException, URISyntaxException {
 
 		// 1/x + 1/y = 1/n
 		// yn + xn = xy
 		// ...
 		// n2 = sr
+		//
+		// 8_000_000 < D(n2) = (2a+1)(2b+1)...(2z+1)
+		// a,b...z being divisor exponents for n
+		// primes to have at max: 3^k > 8_000_000 (that is the worst case of a,b...z = 1)
+		final int maxSize = (int) (Math.log(8_000_000) / Math.log(3)); // 14
+		final int[] exponents = new int[maxSize];
+		final BigInteger[] primes = Primes
+				.makePrimeStream()
+				.limit(maxSize)
+				.mapToObj(BigInteger::valueOf)
+				.toArray(BigInteger[]::new);
 
-		long n = 1;
-		for (long s = 0; s < 8_000_000; n++) {
-			s = Arithmetic.numberOfDivisors(n*n);
-		}
-		return --n;
+		// worst case from that (when every exponent is 1):
+		BigInteger solution = Arrays
+				.stream(primes)
+				.reduce(BigInteger.ONE, (a, b) -> a.multiply(b));
+
+		final double limit = (2 * 4000000) - 1;
+		int counter = 0;
+
+		do {
+		    exponents[counter]++;
+		    // reset the lower exponents to the increased minimum
+		    Arrays.fill(exponents, 0, counter, exponents[counter]);
+
+		    // reset the exponent of 2
+			exponents[0] = 0;
+
+			// calculate the number of divisors from the exponents
+		    final double divisors = Arrays
+		    		.stream(exponents)
+		    		.map(e -> (2 * e) + 1)
+		    		.reduce(1, (a, b) -> a * b);
+
+		    // calculate back the exponent for 2, from the number of divisors
+		    exponents[0] = ((int) (((limit / divisors) - 1) / 2)) + 1;
+
+		    // 2^a * 3^b > 2^b * 3^a, if a<b so switch them
+		    // to get a lower result after recalculation
+		    if (exponents[0] < exponents[1]) {
+		        counter++; // add a new exponent to the calculation
+		    }
+		    else {
+		        // calculate and assign the lower one as the solution
+		    	solution = IntStream
+		        		.range(0, maxSize)
+		        		.mapToObj(i -> primes[i].pow(exponents[i]))
+						.reduce(BigInteger.ONE, (a, b) -> a.multiply(b))
+						// apply minimum
+						.min(solution);
+
+		        counter = 1;
+		    }
+		} while (counter < maxSize);
+
+		return solution;
     }
 }
